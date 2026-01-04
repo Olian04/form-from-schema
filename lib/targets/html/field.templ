@@ -1,0 +1,64 @@
+package html
+
+import (
+	"fmt"
+	"github.com/Olian04/form-from-schema/lib"
+)
+
+templ Field(field *lib.Field) {
+	<div class="field">
+		<label for={ field.Name }>{ field.Label }</label>
+		switch field.Type {
+			case lib.FieldTypeText:
+				<input type="text" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeNumber:
+				<input type="number" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeEmail:
+				<input type="email" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypePassword:
+				<input type="password" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeURL:
+				<input type="url" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeDate:
+				<input type="date" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeTime:
+				<input type="time" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeDateTime:
+				<input type="datetime-local" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeMonth:
+				<input type="month" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeWeek:
+				<input type="week" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeTextarea:
+				<textarea name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }></textarea>
+			case lib.FieldTypeSelect:
+				<select name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }>
+					for _, option := range field.Options {
+						<option value={ fmt.Sprintf("%v", option.Value) }>{ option.Label }</option>
+					}
+				</select>
+			case lib.FieldTypeCheckbox:
+				<input type="checkbox" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeRadio:
+				<input type="radio" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeFile:
+				<input type="file" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeHidden:
+				<input type="hidden" name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+			case lib.FieldTypeObject:
+				<div class="object">
+					for _, field := range field.Fields {
+						@Field(&field)
+					}
+				</div>
+			case lib.FieldTypeArray:
+				<div class="array">
+					for _, field := range field.Fields {
+						@Field(&field)
+					}
+				</div>
+			default:
+				<input type={ field.Type } name={ field.Name } value={ fmt.Sprintf("%v", field.Value) }/>
+		}
+	</div>
+}

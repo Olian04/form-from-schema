@@ -1,0 +1,16 @@
+package html
+
+import "github.com/Olian04/form-from-schema/lib"
+
+templ Form(form *lib.Form) {
+	<form method={ form.Method } action={ form.Action } class="form">
+		<h1>{ form.Title }</h1>
+		<p>{ form.Description }</p>
+		<div class="fields">
+			for _, field := range form.Fields {
+				@Field(&field)
+			}
+		</div>
+		<button type="submit" class="submit-button">Submit</button>
+	</form>
+}

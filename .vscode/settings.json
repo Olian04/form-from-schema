@@ -1,0 +1,6 @@
+{
+  "cSpell.words": ["templ"],
+  "explorer.fileNesting.patterns": {
+    "*.templ": "${capture}_templ.go",
+  }
+}
