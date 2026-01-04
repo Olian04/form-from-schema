@@ -7,7 +7,7 @@ generate:
 
 .PHONY: test
 test: generate
-	go test -race ./...
+	go test -cover -race ./...
 
 .PHONY: lint
 lint:
